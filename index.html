@@ -35,10 +35,11 @@
   .banner ul { list-style: none; margin: 0; padding: 0; }
   .banner li.sep { height: 1px; background: var(--banner-edge); margin: 7px 14px; }
   .link { background: none; border: 0; padding: 0; color: inherit; cursor: pointer; text-align: left; }
-  .banner .link { display: block; width: 100%; padding: 1px 8px 1px 22px; color: var(--gold); position: relative; }
-  .banner .link::before { content: ""; position: absolute; left: 10px; top: 7px; width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); opacity: .7; }
+  .banner .link { display: flex; align-items: center; width: 100%; padding: 2px 8px 2px 10px; color: var(--gold); }
   .banner .link:hover, .banner .link[aria-current="true"] { color: #fff; }
-  .banner .link[aria-current="true"]::before { background: #fff; opacity: 1; }
+  .ic { display: inline-block; width: 16px; height: 16px; margin-right: 6px; flex: none; vertical-align: -3px; }
+  .ic svg { display: block; width: 100%; height: 100%; }
+  .scroll h2 .ic { width: 20px; height: 20px; vertical-align: -5px; }
   .link:focus-visible, .box button:focus-visible, select:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 1px; }
 
   /* Centre: parchment scroll */
@@ -77,7 +78,6 @@
     .banner ul { display: flex; flex-wrap: wrap; gap: 4px 4px; padding: 0 8px; }
     .banner li.sep { display: none; }
     .banner .link { width: auto; padding: 4px 9px; border: 1px solid var(--banner-edge); border-radius: 3px; }
-    .banner .link::before { display: none; }
     .banner .link[aria-current="true"] { border-color: #fff; }
     .banner h2, .box h2, .scroll h2 { font-size: 15px; }
     th, td { height: 30px; }
@@ -121,7 +121,7 @@
   </div>
 </div>
 <script>
-const D = {"title":"Drabooligans Hiscores","updated":"2026-11-12T22:31:55+00:00","skills":[{"id":"4zYUGF5u_0KbMLkWJmmBbQ","name":"Skill 1","named":false},{"id":"Wf3i7Ha-B06DH719j1vtBw","name":"Skill 2","named":false},{"id":"4pefO9k1lUqfA6mvHNi1SA","name":"Skill 3","named":false},{"id":"waK-8EyQFQ2xEjCGYmuTRQ","name":"Skill 4","named":false},{"id":"Tn7t6DQyX0-Q0cM5K7B90A","name":"Skill 5","named":false},{"id":"PyUi-0LU_riFY46AnnFiWg","name":"Skill 6","named":false},{"id":"0hreSMRVXUihq9qjDO2CFA","name":"Skill 7","named":false},{"id":"jqX0Gh6QI0GFFPCDFK_CJQ","name":"Skill 8","named":false},{"id":"heq7u88Q2UuLXFqLGTVwQw","name":"Skill 9","named":false},{"id":"NOqC-z-2ckqi0El22qMFlw","name":"Skill 10","named":false},{"id":"vwY5IkQJJDwb2PKEfoc8MQ","name":"Skill 11","named":false},{"id":"pJggvotwOkuoc98igUn7xA","name":"Skill 12","named":false}],"characters":[{"name":"Rob","xp":{"4zYUGF5u_0KbMLkWJmmBbQ":15605,"Wf3i7Ha-B06DH719j1vtBw":78079,"4pefO9k1lUqfA6mvHNi1SA":6971,"waK-8EyQFQ2xEjCGYmuTRQ":41876,"Tn7t6DQyX0-Q0cM5K7B90A":31323,"PyUi-0LU_riFY46AnnFiWg":42238,"0hreSMRVXUihq9qjDO2CFA":5050,"jqX0Gh6QI0GFFPCDFK_CJQ":143113,"heq7u88Q2UuLXFqLGTVwQw":162389,"NOqC-z-2ckqi0El22qMFlw":10654,"vwY5IkQJJDwb2PKEfoc8MQ":1323,"pJggvotwOkuoc98igUn7xA":60479},"total_xp":599100,"quests_total":48,"quests_done":30,"quests_started":13,"playtime_s":242060,"week_xp":0,"week_play_s":0},{"name":"DrDec28","xp":{"4zYUGF5u_0KbMLkWJmmBbQ":40492,"Wf3i7Ha-B06DH719j1vtBw":138252,"4pefO9k1lUqfA6mvHNi1SA":479856,"waK-8EyQFQ2xEjCGYmuTRQ":77768,"Tn7t6DQyX0-Q0cM5K7B90A":32463,"PyUi-0LU_riFY46AnnFiWg":22913,"0hreSMRVXUihq9qjDO2CFA":6000,"jqX0Gh6QI0GFFPCDFK_CJQ":218089,"heq7u88Q2UuLXFqLGTVwQw":42277,"NOqC-z-2ckqi0El22qMFlw":9416,"vwY5IkQJJDwb2PKEfoc8MQ":5241,"pJggvotwOkuoc98igUn7xA":144509},"total_xp":1217276,"quests_total":52,"quests_done":38,"quests_started":12,"playtime_s":376709,"week_xp":34336,"week_play_s":7363},{"name":"Chazzwazza","xp":{"4zYUGF5u_0KbMLkWJmmBbQ":6464,"Wf3i7Ha-B06DH719j1vtBw":57483,"4pefO9k1lUqfA6mvHNi1SA":3912,"waK-8EyQFQ2xEjCGYmuTRQ":2763,"Tn7t6DQyX0-Q0cM5K7B90A":35806,"PyUi-0LU_riFY46AnnFiWg":7395,"0hreSMRVXUihq9qjDO2CFA":68263,"jqX0Gh6QI0GFFPCDFK_CJQ":60415,"heq7u88Q2UuLXFqLGTVwQw":1500,"NOqC-z-2ckqi0El22qMFlw":8715,"vwY5IkQJJDwb2PKEfoc8MQ":1256,"pJggvotwOkuoc98igUn7xA":19464},"total_xp":273436,"quests_total":36,"quests_done":19,"quests_started":13,"playtime_s":145067,"week_xp":0,"week_play_s":0}]};
+const D = {"title":"Drabooligans Hiscores","updated":"2026-11-12T22:51:55+00:00","skills":[{"id":"4zYUGF5u_0KbMLkWJmmBbQ","name":"Skill 1","named":false},{"id":"Wf3i7Ha-B06DH719j1vtBw","name":"Skill 2","named":false},{"id":"4pefO9k1lUqfA6mvHNi1SA","name":"Skill 3","named":false},{"id":"waK-8EyQFQ2xEjCGYmuTRQ","name":"Skill 4","named":false},{"id":"Tn7t6DQyX0-Q0cM5K7B90A","name":"Skill 5","named":false},{"id":"PyUi-0LU_riFY46AnnFiWg","name":"Skill 6","named":false},{"id":"0hreSMRVXUihq9qjDO2CFA","name":"Skill 7","named":false},{"id":"jqX0Gh6QI0GFFPCDFK_CJQ","name":"Skill 8","named":false},{"id":"heq7u88Q2UuLXFqLGTVwQw","name":"Skill 9","named":false},{"id":"NOqC-z-2ckqi0El22qMFlw","name":"Skill 10","named":false},{"id":"vwY5IkQJJDwb2PKEfoc8MQ","name":"Skill 11","named":false},{"id":"pJggvotwOkuoc98igUn7xA","name":"Skill 12","named":false}],"characters":[{"name":"Rob","xp":{"4zYUGF5u_0KbMLkWJmmBbQ":15605,"Wf3i7Ha-B06DH719j1vtBw":78079,"4pefO9k1lUqfA6mvHNi1SA":6971,"waK-8EyQFQ2xEjCGYmuTRQ":41876,"Tn7t6DQyX0-Q0cM5K7B90A":31323,"PyUi-0LU_riFY46AnnFiWg":42238,"0hreSMRVXUihq9qjDO2CFA":5050,"jqX0Gh6QI0GFFPCDFK_CJQ":143113,"heq7u88Q2UuLXFqLGTVwQw":162389,"NOqC-z-2ckqi0El22qMFlw":10654,"vwY5IkQJJDwb2PKEfoc8MQ":1323,"pJggvotwOkuoc98igUn7xA":60479},"total_xp":599100,"quests_total":48,"quests_done":30,"quests_started":13,"playtime_s":242060,"week_xp":0,"week_play_s":0},{"name":"DrDec28","xp":{"4zYUGF5u_0KbMLkWJmmBbQ":40492,"Wf3i7Ha-B06DH719j1vtBw":138252,"4pefO9k1lUqfA6mvHNi1SA":479856,"waK-8EyQFQ2xEjCGYmuTRQ":77768,"Tn7t6DQyX0-Q0cM5K7B90A":32463,"PyUi-0LU_riFY46AnnFiWg":22913,"0hreSMRVXUihq9qjDO2CFA":6000,"jqX0Gh6QI0GFFPCDFK_CJQ":218089,"heq7u88Q2UuLXFqLGTVwQw":42277,"NOqC-z-2ckqi0El22qMFlw":9416,"vwY5IkQJJDwb2PKEfoc8MQ":5241,"pJggvotwOkuoc98igUn7xA":144509},"total_xp":1217276,"quests_total":52,"quests_done":38,"quests_started":12,"playtime_s":376709,"week_xp":34336,"week_play_s":7363},{"name":"Chazzwazza","xp":{"4zYUGF5u_0KbMLkWJmmBbQ":6464,"Wf3i7Ha-B06DH719j1vtBw":57483,"4pefO9k1lUqfA6mvHNi1SA":3912,"waK-8EyQFQ2xEjCGYmuTRQ":2763,"Tn7t6DQyX0-Q0cM5K7B90A":35906,"PyUi-0LU_riFY46AnnFiWg":7411,"0hreSMRVXUihq9qjDO2CFA":68263,"jqX0Gh6QI0GFFPCDFK_CJQ":60415,"heq7u88Q2UuLXFqLGTVwQw":1500,"NOqC-z-2ckqi0El22qMFlw":8715,"vwY5IkQJJDwb2PKEfoc8MQ":1256,"pJggvotwOkuoc98igUn7xA":19517},"total_xp":273605,"quests_total":36,"quests_done":19,"quests_started":13,"playtime_s":145575,"week_xp":169,"week_play_s":508}]};
 const $ = id => document.getElementById(id);
 const fmt = n => Math.round(n).toLocaleString("en-GB");
 const hrs = s => (s / 3600).toFixed(1);
@@ -132,13 +132,44 @@ const el = (tag, text, cls) => {
   return e;
 };
 
+/* Icons: original drawings on a 16x16 grid, keyed by lower-case category name. */
+const S = 'fill="none" stroke-linecap="round" stroke-linejoin="round"';
+const ICONS = {
+  overall: '<rect x="2" y="9" width="3" height="5" fill="#b8893a"/><rect x="6.5" y="5" width="3" height="9" fill="#e2b84a"/><rect x="11" y="2" width="3" height="12" fill="#ffe139"/>',
+  attack: `<g ${S}><path d="M13.5 2.5 6 10" stroke="#d5dde3" stroke-width="2.2"/><path d="M4 8l4 4" stroke="#c9963c" stroke-width="1.8"/><path d="M5 11l-2.5 2.5" stroke="#8a6234" stroke-width="2"/></g>`,
+  magic: '<path d="M8.6 1.2 12.4 11H3.6Z" fill="#3fb0c2"/><ellipse cx="8" cy="12" rx="6.6" ry="2.2" fill="#2a8697"/><circle cx="9.2" cy="7.2" r="1" fill="#ffe139"/><circle cx="6.9" cy="9.3" r=".6" fill="#ffe139"/>',
+  ranged: `<g ${S}><path d="M4 2Q13.5 8 4 14" stroke="#b07a3c" stroke-width="1.7"/><path d="M4 2v12" stroke="#e6e6e6" stroke-width=".8"/><path d="M2 8h10.5" stroke="#d5dde3" stroke-width="1.2"/></g><path d="M12 6.2 15.2 8 12 9.8Z" fill="#d5dde3"/>`,
+  mining: `<g ${S}><path d="M9 4 4 14" stroke="#8a6234" stroke-width="1.9"/><path d="M2.5 6.5Q7.5 1.2 14 3.8" stroke="#d2603f" stroke-width="2.3"/></g>`,
+  woodcutting: '<rect x="7" y="9.5" width="2" height="5.5" fill="#7a5230"/><circle cx="8" cy="5.4" r="4.2" fill="#55a041"/><circle cx="4.6" cy="8" r="2.6" fill="#4a9038"/><circle cx="11.4" cy="8" r="2.6" fill="#4a9038"/>',
+  artisan: `<g ${S}><path d="M3 13.5 10.5 6" stroke="#8a6234" stroke-width="1.7"/><path d="M13 13.5 5.5 6" stroke="#8a6234" stroke-width="1.7"/><path d="M9.3 3.2l3.5 3.5" stroke="#e0b93f" stroke-width="3.2" stroke-linecap="butt"/><path d="M6.7 3.2 3.2 6.7" stroke="#e0b93f" stroke-width="3.2" stroke-linecap="butt"/></g>`,
+  construction: '<path d="M1.5 9.5 10 5l1.4 3L3 12.8Z" fill="#74b6e6"/><path d="M3 12.8l1-1.6.9 1 .9-1.5.9 1 .9-1.5.9 1 .9-1.5.9 1 .9-1.6" fill="none" stroke="#0b0a08" stroke-width=".5"/><path d="M9.6 4.6 13.6 2.8l1.6 4-4 1.8Z" fill="#8a6234"/>',
+  cooking: `<path d="M3 6.5h10q.6 6.8-5 7.2-5.6-.4-5-7.2Z" fill="#e58f4d"/><rect x="2.2" y="5.2" width="11.6" height="1.8" rx=".6" fill="#b86a34"/><g ${S} stroke="#e6e6e6" stroke-width=".9"><path d="M6 3.8q-.9-1 0-2"/><path d="M8.3 3.8q-.9-1 0-2"/><path d="M10.6 3.8q-.9-1 0-2"/></g>`,
+  runecrafting: `<path d="M8 1.3 13.6 5l-1 7.2L8 14.7l-4.6-2.5L2.4 5Z" fill="#8f62d6"/><path d="M9.3 3.8 6.2 8.6h3L7.4 12.4" ${S} stroke="#f3eaff" stroke-width="1.3"/>`,
+  farming: `<rect x="5" y="6" width="7" height="7.5" rx="1" fill="#dcdcdc"/><g ${S} stroke="#dcdcdc"><path d="M5 9.5 2 5.6" stroke-width="1.7"/><path d="M12 7.2q3.4 2.4 0 4.8" stroke-width="1.3"/></g><circle cx="1.9" cy="5.2" r="1.3" fill="#bdbdbd"/><rect x="5" y="6" width="7" height="1.4" rx=".7" fill="#bdbdbd"/>`,
+  fishing: '<path d="M11 8 15 4.8v6.4Z" fill="#4a8cc4"/><ellipse cx="7" cy="8" rx="5.2" ry="3.1" fill="#5fa6de"/><circle cx="4.4" cy="7.2" r=".8" fill="#0b0a08"/><path d="M6 5.3Q8 3.6 9.6 5.4Z" fill="#4a8cc4"/>',
+  agility: `<circle cx="10" cy="2.8" r="1.7" fill="#e0564b"/><g ${S} stroke="#e0564b" stroke-width="1.7"><path d="M9.2 5.2 7.4 9"/><path d="M5.4 6.6 8.8 5.8l2.4 2"/><path d="M7.4 9l2.6 2-.6 3.2"/><path d="M7.4 9 5.6 11.4H2.8"/></g>`,
+  quests: '<path d="M8 1.2 9.9 6.1 14.8 8 9.9 9.9 8 14.8 6.1 9.9 1.2 8 6.1 6.1Z" fill="#4f8fe0"/><circle cx="8" cy="8" r="1.5" fill="#dcecff"/>',
+  playtime: `<circle cx="8" cy="8" r="6" fill="#efe6c8" stroke="#b8893a" stroke-width="1.6"/><path d="M8 4.4V8l2.6 1.6" ${S} stroke="#3a2d12" stroke-width="1.3"/>`,
+  unknown: '<path d="M8 3 13 8 8 13 3 8Z" fill="#d9c27e"/>',
+};
+function icon(key) {
+  const span = el("span", undefined, "ic");
+  span.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true">' + (ICONS[key] || ICONS.unknown) + "</svg>";
+  return span;
+}
+const withIcon = (node, key) => { node.prepend(icon(key)); return node; };
+
 /* Every category is one metric: a value to rank by and a way to print it. */
 function categories() {
-  const cats = [{ id: "overall", label: "Overall", col: "XP", value: c => c.total_xp, show: c => fmt(c.total_xp) }];
-  D.skills.forEach(s => cats.push({ id: s.id, label: s.name, col: "XP", value: c => c.xp[s.id] || 0, show: c => fmt(c.xp[s.id] || 0) }));
+  const lv = D.characters.every(c => c.levels);  // levels need the XP table at build time
+  const cats = [{ id: "overall", label: "Overall", col: "XP", show: c => fmt(c.total_xp),
+    value: c => (lv ? c.total_level * 1e9 : 0) + c.total_xp, level: lv ? c => c.total_level : null }];
+  D.skills.forEach(s => cats.push({ id: s.id, label: s.name, col: "XP", value: c => c.xp[s.id] || 0,
+    show: c => fmt(c.xp[s.id] || 0), level: lv ? c => c.levels[s.id] || 1 : null }));
   cats.push({ sep: true });
   cats.push({ id: "quests", label: "Quests", col: "Completed", value: c => c.quests_done, show: c => c.quests_done + " / " + c.quests_total });
   cats.push({ id: "playtime", label: "Playtime", col: "Hours", value: c => c.playtime_s, show: c => hrs(c.playtime_s) });
+  cats.forEach(c => { if (!c.sep) c.icon = c.label.toLowerCase(); });
   return cats;
 }
 const CATS = D ? categories() : [];
@@ -161,8 +192,9 @@ function row(cells, tag) {
   });
   return tr;
 }
-function fill(heading, head, rows, foot) {
+function fill(heading, head, rows, foot, iconKey) {
   $("heading").textContent = heading;
+  if (iconKey) withIcon($("heading"), iconKey);
   const thead = el("thead"), tbody = el("tbody");
   thead.append(row(head, "th"));
   rows.forEach(r => tbody.append(row(r)));
@@ -176,10 +208,14 @@ function renderCat(id) {
   const chars = [...D.characters].sort((a, b) => c.value(b) - c.value(a));
   const week = id === "overall" && chars.some(p => p.week_xp != null) ? "xp"
     : id === "playtime" && chars.some(p => p.week_play_s != null) ? "play" : null;
-  const head = [["Rank"], ["Name", "l"], [c.col]];
+  const head = [["Rank"], ["Name", "l"]];
+  if (c.level) head.push(["Level"]);
+  head.push([c.col]);
   if (week) head.push(["This week"]);
   const rows = chars.map(p => {
-    const r = [[String(rank(c, p))], [nameLink(p), "l"], [c.show(p)]];
+    const r = [[String(rank(c, p))], [nameLink(p), "l"]];
+    if (c.level) r.push([fmt(c.level(p))]);
+    r.push([c.show(p)]);
     if (week === "xp") r.push([p.week_xp ? "+" + fmt(p.week_xp) : "-", "gain"]);
     if (week === "play") r.push([p.week_play_s ? "+" + hrs(p.week_play_s) : "-", "gain"]);
     return r;
@@ -187,24 +223,25 @@ function renderCat(id) {
   const unnamed = D.skills.some(s => s.id === id && !s.named);
   fill(c.label + " Hiscores", head, rows,
     unnamed ? "Skill names are not mapped yet, so skills show as numbers."
-    : id === "quests" ? "Completed, out of the quests each character has discovered." : "");
+    : id === "quests" ? "Completed, out of the quests each character has discovered." : "", c.icon);
 }
 
 function renderPlayer(name) {
   const p = player(name);
   const rows = CATS.filter(c => !c.sep).map(c => {
-    const b = el("button", c.label, "link");
+    const b = withIcon(el("button", c.label, "link"), c.icon);
     b.onclick = () => go({ view: "cat", id: c.id });
-    return [[b, "l"], [String(rank(c, p))], [c.show(p)]];
+    return [[b, "l"], [String(rank(c, p))], [c.level ? fmt(c.level(p)) : ""], [c.show(p)]];
   });
-  fill("Personal scores for " + p.name, [["Skill", "l"], ["Rank"], ["Score"]], rows);
+  fill("Personal scores for " + p.name, [["Skill", "l"], ["Rank"], ["Level"], ["XP"]], rows);
 }
 
 function renderCompare(a, b) {
   const pa = player(a), pb = player(b);
   const rows = CATS.filter(c => !c.sep).map(c => {
     const va = c.value(pa), vb = c.value(pb);
-    return [[c.show(pa), va > vb ? "win" : ""], [c.label, "c"], [c.show(pb), vb > va ? "win l" : "l"]];
+    const cell = p => c.level ? fmt(c.level(p)) + " (" + c.show(p) + ")" : c.show(p);
+    return [[cell(pa), va > vb ? "win" : ""], [c.label, "c"], [cell(pb), vb > va ? "win l" : "l"]];
   });
   fill(pa.name + " vs " + pb.name, [[pa.name], ["Skill", "c"], [pb.name, "l"]], rows);
 }
@@ -227,7 +264,7 @@ if (!D) {
   CATS.forEach(c => {
     const li = el("li", undefined, c.sep ? "sep" : "");
     if (!c.sep) {
-      const b = el("button", c.label, "link");
+      const b = withIcon(el("button", c.label, "link"), c.icon);
       b.dataset.id = c.id;
       b.onclick = () => go({ view: "cat", id: c.id });
       li.append(b);
