@@ -63,6 +63,17 @@
   .scroll .link:hover { color: #7a1010; text-decoration: underline; }
   .win { font-weight: bold; }
   .gain { color: #1c5c12; }
+  .on { color: #1c5c12; font-size: 11px; font-weight: bold; }
+  .chart { margin: 20px auto 0; max-width: 310px; text-align: left; }
+  .chart h3 { margin: 0 0 10px; font-size: inherit; text-align: center; }
+  .crow { display: grid; grid-template-columns: 84px 1fr; align-items: end; gap: 8px; margin-bottom: 8px; }
+  .cname { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: right; }
+  .crow svg { display: block; width: 100%; height: auto; border-bottom: 1px solid #6b5a33; }
+  .bar { fill: #7a2318; }
+  .hit { fill: transparent; cursor: pointer; }
+  .hit:hover, .hit.sel { fill: rgba(0, 0, 0, .1); }
+  .caxis { display: flex; justify-content: space-between; margin-left: 92px; font-size: 11px; color: #4a3d1f; }
+  .tip { margin: 8px 0 0; min-height: 18px; font-size: 12px; text-align: center; color: #2a2010; }
   .foot { margin: 12px 0 0; font-size: 11px; line-height: 15px; color: #4a3d1f; }
 
   /* Right: stone boxes */
@@ -101,6 +112,7 @@
       <div class="paper">
         <h2 id="heading"></h2>
         <div class="tw"><table id="table"></table></div>
+        <div id="extra"></div>
         <p class="foot" id="foot" hidden></p>
       </div>
       <div class="roll"></div>
@@ -121,7 +133,7 @@
   </div>
 </div>
 <script>
-const D = {"title":"Drabooligans Hiscores","updated":"2026-11-12T23:02:48+00:00","skills":[{"id":"4pefO9k1lUqfA6mvHNi1SA","name":"Attack","named":true},{"id":"0hreSMRVXUihq9qjDO2CFA","name":"Magic","named":true},{"id":"heq7u88Q2UuLXFqLGTVwQw","name":"Ranged","named":true},{"id":"jqX0Gh6QI0GFFPCDFK_CJQ","name":"Mining","named":true},{"id":"4zYUGF5u_0KbMLkWJmmBbQ","name":"Woodcutting","named":true},{"id":"Wf3i7Ha-B06DH719j1vtBw","name":"Artisan","named":true},{"id":"waK-8EyQFQ2xEjCGYmuTRQ","name":"Construction","named":true},{"id":"Tn7t6DQyX0-Q0cM5K7B90A","name":"Cooking","named":true},{"id":"NOqC-z-2ckqi0El22qMFlw","name":"Runecrafting","named":true},{"id":"PyUi-0LU_riFY46AnnFiWg","name":"Farming","named":true},{"id":"vwY5IkQJJDwb2PKEfoc8MQ","name":"Fishing","named":true},{"id":"pJggvotwOkuoc98igUn7xA","name":"Agility","named":true}],"characters":[{"name":"Rob","xp":{"4zYUGF5u_0KbMLkWJmmBbQ":15605,"Wf3i7Ha-B06DH719j1vtBw":78079,"4pefO9k1lUqfA6mvHNi1SA":6971,"waK-8EyQFQ2xEjCGYmuTRQ":41876,"Tn7t6DQyX0-Q0cM5K7B90A":31323,"PyUi-0LU_riFY46AnnFiWg":42238,"0hreSMRVXUihq9qjDO2CFA":5050,"jqX0Gh6QI0GFFPCDFK_CJQ":143113,"heq7u88Q2UuLXFqLGTVwQw":162389,"NOqC-z-2ckqi0El22qMFlw":10654,"vwY5IkQJJDwb2PKEfoc8MQ":1323,"pJggvotwOkuoc98igUn7xA":60479},"total_xp":599100,"levels":{"4pefO9k1lUqfA6mvHNi1SA":32,"0hreSMRVXUihq9qjDO2CFA":29,"heq7u88Q2UuLXFqLGTVwQw":72,"jqX0Gh6QI0GFFPCDFK_CJQ":69,"4zYUGF5u_0KbMLkWJmmBbQ":40,"Wf3i7Ha-B06DH719j1vtBw":58,"waK-8EyQFQ2xEjCGYmuTRQ":50,"Tn7t6DQyX0-Q0cM5K7B90A":47,"NOqC-z-2ckqi0El22qMFlw":36,"PyUi-0LU_riFY46AnnFiWg":50,"vwY5IkQJJDwb2PKEfoc8MQ":17,"pJggvotwOkuoc98igUn7xA":54},"total_level":554,"quests_total":48,"quests_done":30,"quests_started":13,"playtime_s":242060,"week_xp":0,"week_play_s":0},{"name":"DrDec28","xp":{"4zYUGF5u_0KbMLkWJmmBbQ":40492,"Wf3i7Ha-B06DH719j1vtBw":138252,"4pefO9k1lUqfA6mvHNi1SA":479856,"waK-8EyQFQ2xEjCGYmuTRQ":77768,"Tn7t6DQyX0-Q0cM5K7B90A":32463,"PyUi-0LU_riFY46AnnFiWg":22913,"0hreSMRVXUihq9qjDO2CFA":6000,"jqX0Gh6QI0GFFPCDFK_CJQ":218089,"heq7u88Q2UuLXFqLGTVwQw":42277,"NOqC-z-2ckqi0El22qMFlw":9416,"vwY5IkQJJDwb2PKEfoc8MQ":5241,"pJggvotwOkuoc98igUn7xA":144509},"total_xp":1217276,"levels":{"4pefO9k1lUqfA6mvHNi1SA":95,"0hreSMRVXUihq9qjDO2CFA":31,"heq7u88Q2UuLXFqLGTVwQw":50,"jqX0Gh6QI0GFFPCDFK_CJQ":79,"4zYUGF5u_0KbMLkWJmmBbQ":49,"Wf3i7Ha-B06DH719j1vtBw":68,"waK-8EyQFQ2xEjCGYmuTRQ":58,"Tn7t6DQyX0-Q0cM5K7B90A":47,"NOqC-z-2ckqi0El22qMFlw":35,"PyUi-0LU_riFY46AnnFiWg":44,"vwY5IkQJJDwb2PKEfoc8MQ":29,"pJggvotwOkuoc98igUn7xA":69},"total_level":654,"quests_total":52,"quests_done":38,"quests_started":12,"playtime_s":376709,"week_xp":34336,"week_play_s":7363},{"name":"Chazzwazza","xp":{"4zYUGF5u_0KbMLkWJmmBbQ":6464,"Wf3i7Ha-B06DH719j1vtBw":57483,"4pefO9k1lUqfA6mvHNi1SA":3912,"waK-8EyQFQ2xEjCGYmuTRQ":2763,"Tn7t6DQyX0-Q0cM5K7B90A":35906,"PyUi-0LU_riFY46AnnFiWg":7411,"0hreSMRVXUihq9qjDO2CFA":68263,"jqX0Gh6QI0GFFPCDFK_CJQ":60415,"heq7u88Q2UuLXFqLGTVwQw":1500,"NOqC-z-2ckqi0El22qMFlw":8715,"vwY5IkQJJDwb2PKEfoc8MQ":1256,"pJggvotwOkuoc98igUn7xA":19517},"total_xp":273605,"levels":{"4pefO9k1lUqfA6mvHNi1SA":27,"0hreSMRVXUihq9qjDO2CFA":56,"heq7u88Q2UuLXFqLGTVwQw":18,"jqX0Gh6QI0GFFPCDFK_CJQ":54,"4zYUGF5u_0KbMLkWJmmBbQ":31,"Wf3i7Ha-B06DH719j1vtBw":54,"waK-8EyQFQ2xEjCGYmuTRQ":23,"Tn7t6DQyX0-Q0cM5K7B90A":48,"NOqC-z-2ckqi0El22qMFlw":34,"PyUi-0LU_riFY46AnnFiWg":33,"vwY5IkQJJDwb2PKEfoc8MQ":17,"pJggvotwOkuoc98igUn7xA":42},"total_level":437,"quests_total":36,"quests_done":19,"quests_started":13,"playtime_s":146229,"week_xp":169,"week_play_s":1162}]};
+const D = {"title":"Drabooligans Hiscores","updated":"2026-11-12T23:02:48+00:00","playtime":{"tz":"Europe/London","days":["2026-10-16","2026-10-17","2026-10-18","2026-10-19","2026-10-20","2026-10-21","2026-10-22","2026-10-23","2026-10-24","2026-10-25","2026-10-26","2026-10-27","2026-10-28","2026-10-29","2026-10-30","2026-10-31","2026-11-01","2026-11-02","2026-11-03","2026-11-04","2026-11-05","2026-11-06","2026-11-07","2026-11-08","2026-11-09","2026-11-10","2026-11-11","2026-11-12"],"players":[{"name":"Chazzwazza","daily":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1502],"online":false},{"name":"DrDec28","daily":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5429,7229,6335,5710,0,11116,13970,5608,0,8604,7365],"online":false},{"name":"Ser Stout","daily":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1116,0,0,0,2192,8641],"online":false}]},"skills":[{"id":"4pefO9k1lUqfA6mvHNi1SA","name":"Attack","named":true},{"id":"0hreSMRVXUihq9qjDO2CFA","name":"Magic","named":true},{"id":"heq7u88Q2UuLXFqLGTVwQw","name":"Ranged","named":true},{"id":"jqX0Gh6QI0GFFPCDFK_CJQ","name":"Mining","named":true},{"id":"4zYUGF5u_0KbMLkWJmmBbQ","name":"Woodcutting","named":true},{"id":"Wf3i7Ha-B06DH719j1vtBw","name":"Artisan","named":true},{"id":"waK-8EyQFQ2xEjCGYmuTRQ","name":"Construction","named":true},{"id":"Tn7t6DQyX0-Q0cM5K7B90A","name":"Cooking","named":true},{"id":"NOqC-z-2ckqi0El22qMFlw","name":"Runecrafting","named":true},{"id":"PyUi-0LU_riFY46AnnFiWg","name":"Farming","named":true},{"id":"vwY5IkQJJDwb2PKEfoc8MQ","name":"Fishing","named":true},{"id":"pJggvotwOkuoc98igUn7xA","name":"Agility","named":true}],"characters":[{"name":"Rob","xp":{"4zYUGF5u_0KbMLkWJmmBbQ":15605,"Wf3i7Ha-B06DH719j1vtBw":78079,"4pefO9k1lUqfA6mvHNi1SA":6971,"waK-8EyQFQ2xEjCGYmuTRQ":41876,"Tn7t6DQyX0-Q0cM5K7B90A":31323,"PyUi-0LU_riFY46AnnFiWg":42238,"0hreSMRVXUihq9qjDO2CFA":5050,"jqX0Gh6QI0GFFPCDFK_CJQ":143113,"heq7u88Q2UuLXFqLGTVwQw":162389,"NOqC-z-2ckqi0El22qMFlw":10654,"vwY5IkQJJDwb2PKEfoc8MQ":1323,"pJggvotwOkuoc98igUn7xA":60479},"total_xp":599100,"levels":{"4pefO9k1lUqfA6mvHNi1SA":32,"0hreSMRVXUihq9qjDO2CFA":29,"heq7u88Q2UuLXFqLGTVwQw":72,"jqX0Gh6QI0GFFPCDFK_CJQ":69,"4zYUGF5u_0KbMLkWJmmBbQ":40,"Wf3i7Ha-B06DH719j1vtBw":58,"waK-8EyQFQ2xEjCGYmuTRQ":50,"Tn7t6DQyX0-Q0cM5K7B90A":47,"NOqC-z-2ckqi0El22qMFlw":36,"PyUi-0LU_riFY46AnnFiWg":50,"vwY5IkQJJDwb2PKEfoc8MQ":17,"pJggvotwOkuoc98igUn7xA":54},"total_level":554,"quests_total":48,"quests_done":30,"quests_started":13,"playtime_s":242060,"week_xp":0,"week_play_s":0},{"name":"DrDec28","xp":{"4zYUGF5u_0KbMLkWJmmBbQ":40492,"Wf3i7Ha-B06DH719j1vtBw":138252,"4pefO9k1lUqfA6mvHNi1SA":479856,"waK-8EyQFQ2xEjCGYmuTRQ":77768,"Tn7t6DQyX0-Q0cM5K7B90A":32463,"PyUi-0LU_riFY46AnnFiWg":22913,"0hreSMRVXUihq9qjDO2CFA":6000,"jqX0Gh6QI0GFFPCDFK_CJQ":218089,"heq7u88Q2UuLXFqLGTVwQw":42277,"NOqC-z-2ckqi0El22qMFlw":9416,"vwY5IkQJJDwb2PKEfoc8MQ":5241,"pJggvotwOkuoc98igUn7xA":144509},"total_xp":1217276,"levels":{"4pefO9k1lUqfA6mvHNi1SA":95,"0hreSMRVXUihq9qjDO2CFA":31,"heq7u88Q2UuLXFqLGTVwQw":50,"jqX0Gh6QI0GFFPCDFK_CJQ":79,"4zYUGF5u_0KbMLkWJmmBbQ":49,"Wf3i7Ha-B06DH719j1vtBw":68,"waK-8EyQFQ2xEjCGYmuTRQ":58,"Tn7t6DQyX0-Q0cM5K7B90A":47,"NOqC-z-2ckqi0El22qMFlw":35,"PyUi-0LU_riFY46AnnFiWg":44,"vwY5IkQJJDwb2PKEfoc8MQ":29,"pJggvotwOkuoc98igUn7xA":69},"total_level":654,"quests_total":52,"quests_done":38,"quests_started":12,"playtime_s":376709,"week_xp":34336,"week_play_s":7363},{"name":"Chazzwazza","xp":{"4zYUGF5u_0KbMLkWJmmBbQ":6464,"Wf3i7Ha-B06DH719j1vtBw":57483,"4pefO9k1lUqfA6mvHNi1SA":3912,"waK-8EyQFQ2xEjCGYmuTRQ":2763,"Tn7t6DQyX0-Q0cM5K7B90A":35906,"PyUi-0LU_riFY46AnnFiWg":7411,"0hreSMRVXUihq9qjDO2CFA":68263,"jqX0Gh6QI0GFFPCDFK_CJQ":60415,"heq7u88Q2UuLXFqLGTVwQw":1500,"NOqC-z-2ckqi0El22qMFlw":8715,"vwY5IkQJJDwb2PKEfoc8MQ":1256,"pJggvotwOkuoc98igUn7xA":19517},"total_xp":273605,"levels":{"4pefO9k1lUqfA6mvHNi1SA":27,"0hreSMRVXUihq9qjDO2CFA":56,"heq7u88Q2UuLXFqLGTVwQw":18,"jqX0Gh6QI0GFFPCDFK_CJQ":54,"4zYUGF5u_0KbMLkWJmmBbQ":31,"Wf3i7Ha-B06DH719j1vtBw":54,"waK-8EyQFQ2xEjCGYmuTRQ":23,"Tn7t6DQyX0-Q0cM5K7B90A":48,"NOqC-z-2ckqi0El22qMFlw":34,"PyUi-0LU_riFY46AnnFiWg":33,"vwY5IkQJJDwb2PKEfoc8MQ":17,"pJggvotwOkuoc98igUn7xA":42},"total_level":437,"quests_total":36,"quests_done":19,"quests_started":13,"playtime_s":146229,"week_xp":169,"week_play_s":1162}]};
 const $ = id => document.getElementById(id);
 const fmt = n => Math.round(n).toLocaleString("en-GB");
 const hrs = s => (s / 3600).toFixed(1);
@@ -199,11 +211,67 @@ function fill(heading, head, rows, foot, iconKey) {
   thead.append(row(head, "th"));
   rows.forEach(r => tbody.append(row(r)));
   $("table").replaceChildren(thead, tbody);
+  $("extra").replaceChildren();
   $("foot").textContent = foot || "";
   $("foot").hidden = !foot;
 }
 
+/* Playtime from the server log: a table of recent totals plus one small bar chart per player. */
+function renderPlaytime() {
+  const P = D.playtime, n = P.days.length;
+  const sum = (a, k) => a.slice(n - k).reduce((x, y) => x + y, 0);
+  const players = [...P.players];
+  D.characters.forEach(c => {
+    if (!players.some(p => p.name === c.name)) players.push({ name: c.name, daily: new Array(n).fill(0), online: false });
+  });
+  players.sort((a, b) => sum(b.daily, 7) - sum(a.daily, 7) || sum(b.daily, 28) - sum(a.daily, 28));
+  const h = s => s ? hrs(s) : "-";
+  const rows = players.map((p, i) => {
+    const ch = player(p.name), cell = el("span");
+    cell.append(ch ? nameLink(ch) : p.name);
+    if (p.online) cell.append(el("span", " online", "on"));
+    return [[String(i + 1)], [cell, "l"], [h(p.daily[n - 1])], [h(sum(p.daily, 7))], [h(sum(p.daily, n))], [ch ? hrs(ch.playtime_s) : "-"]];
+  });
+  fill("Playtime Hiscores", [["Rank"], ["Name", "l"], ["Today"], ["7 days"], [n + " days"], ["Total"]], rows,
+    "Hours. Recent figures come from the server log, with days in UK time. Total is the character's own counter.", "playtime");
+
+  const k = Math.min(14, n), days = P.days.slice(n - k), W = 16, H = 44, NS = "http://www.w3.org/2000/svg";
+  const active = players.filter(p => p.daily.slice(n - k).some(Boolean));
+  const box = el("div", undefined, "chart");
+  box.append(el("h3", "Hours per day, last " + k + " days"));
+  if (!active.length) { box.append(el("p", "No sessions in the last " + k + " days.", "tip")); $("extra").append(box); return; }
+  const max = Math.max(3600, ...active.flatMap(p => p.daily.slice(n - k)));
+  const tip = el("p", "Hover or tap a bar for the figure. All rows share one scale.", "tip");
+  const svgEl = (tag, attrs) => { const e = document.createElementNS(NS, tag); Object.entries(attrs).forEach(([a, v]) => e.setAttribute(a, v)); return e; };
+  active.forEach(p => {
+    const row = el("div", undefined, "crow");
+    row.append(el("span", p.name, "cname"));
+    const svg = svgEl("svg", { viewBox: "0 0 " + k * W + " " + H, role: "img", "aria-label": p.name + ": hours per day" });
+    p.daily.slice(n - k).forEach((s, i) => {
+      const bh = s ? Math.max(2, Math.round(s / max * H)) : 0;
+      if (bh) svg.append(svgEl("rect", { class: "bar", x: i * W + 3, y: H - bh, width: W - 6, height: bh, rx: Math.min(2, bh / 2) }));
+      const hit = svgEl("rect", { class: "hit", x: i * W, y: 0, width: W, height: H });
+      const when = new Date(days[i] + "T12:00:00").toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+      const say = () => {
+        box.querySelectorAll(".hit.sel").forEach(e => e.classList.remove("sel"));
+        hit.classList.add("sel");
+        tip.textContent = p.name + ", " + when + ": " + (s ? hrs(s) + " h" : "did not play");
+      };
+      hit.addEventListener("pointerenter", say);
+      hit.addEventListener("click", say);
+      svg.append(hit);
+    });
+    row.append(svg);
+    box.append(row);
+  });
+  const axis = el("div", undefined, "caxis");
+  axis.append(el("span", new Date(days[0] + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short" })), el("span", "Today"));
+  box.append(axis, tip);
+  $("extra").append(box);
+}
+
 function renderCat(id) {
+  if (id === "playtime" && D.playtime) return renderPlaytime();
   const c = cat(id);
   const chars = [...D.characters].sort((a, b) => c.value(b) - c.value(a));
   const week = id === "overall" && chars.some(p => p.week_xp != null) ? "xp"
