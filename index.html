@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hiscores</title>
+<style>
+  /* Layout modelled on the Old School hiscores: skill list left, parchment scroll centre,
+     stone boxes right. All drawn in CSS; no Jagex artwork is used. */
+  :root {
+    --gold: #d9c27e; --gold-bright: #ffe139; --stone: #2b2620; --stone-edge: #5a5043;
+    --banner: #1b2236; --banner-edge: #3b4666; --paper: #cdbb8c; --paper-dark: #b29f70; --ink: #000;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; color: #fff; font: 13px/18px Arial, Helvetica, sans-serif;
+    background-color: #0b0a08;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(60, 52, 40, .35) 0 2px, transparent 3px),
+      radial-gradient(circle at 70% 60%, rgba(60, 52, 40, .3) 0 2px, transparent 3px),
+      linear-gradient(#14110d, #070605);
+    background-size: 46px 46px, 62px 62px, 100% 100%;
+  }
+  button, select { font: inherit; }
+  .page { max-width: 760px; margin: 0 auto; padding: 16px 16px 40px; }
+  header { text-align: center; padding: 18px 0 20px; }
+  header h1 { margin: 0; font-size: 26px; line-height: 1.2; font-weight: bold; color: var(--gold-bright); text-shadow: 2px 2px 0 #000; }
+  header p { margin: 6px 0 0; color: var(--gold); }
+  .cols { display: grid; grid-template-columns: 170px minmax(0, 1fr) 170px; gap: 14px; align-items: start; }
+
+  /* Left: category banner */
+  .banner { background: var(--banner); border: 2px solid var(--banner-edge); border-radius: 3px; padding: 8px 0 10px; box-shadow: 0 0 0 1px #000; }
+  .banner h2, .box h2 { margin: 0 0 6px; font-size: 13px; text-align: center; color: var(--gold-bright); }
+  .banner ul { list-style: none; margin: 0; padding: 0; }
+  .banner li.sep { height: 1px; background: var(--banner-edge); margin: 7px 14px; }
+  .link { background: none; border: 0; padding: 0; color: inherit; cursor: pointer; text-align: left; }
+  .banner .link { display: block; width: 100%; padding: 1px 8px 1px 22px; color: var(--gold); position: relative; }
+  .banner .link::before { content: ""; position: absolute; left: 10px; top: 7px; width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); opacity: .7; }
+  .banner .link:hover, .banner .link[aria-current="true"] { color: #fff; }
+  .banner .link[aria-current="true"]::before { background: #fff; opacity: 1; }
+  .link:focus-visible, .box button:focus-visible, select:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 1px; }
+
+  /* Centre: parchment scroll */
+  .scroll { color: var(--ink); }
+  .scroll .roll { height: 16px; border-radius: 8px; border: 1px solid #5b4a26;
+    background: linear-gradient(#e2d3a6, #a8935f 55%, #7d6a3d); box-shadow: 0 2px 3px rgba(0, 0, 0, .6); }
+  .scroll .paper { margin: -4px 9px; padding: 16px 10px 20px; min-height: 300px; text-align: center;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(255, 250, 225, .35), transparent 60%),
+      radial-gradient(ellipse at 75% 80%, rgba(120, 95, 50, .25), transparent 55%),
+      linear-gradient(90deg, var(--paper-dark), var(--paper) 9%, var(--paper) 91%, var(--paper-dark));
+    border-left: 1px solid #6b5a33; border-right: 1px solid #6b5a33; }
+  .scroll h2 { margin: 0 0 10px; font-size: 13px; font-weight: bold; }
+  .scroll .tw { overflow-x: auto; }
+  table { margin: 0 auto; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { padding: 1px 6px; height: 23px; text-align: right; white-space: nowrap; font-weight: normal; }
+  th { font-weight: bold; }
+  .l { text-align: left; }
+  .c { text-align: center; }
+  .scroll .link { color: var(--ink); }
+  .scroll .link:hover { color: #7a1010; text-decoration: underline; }
+  .win { font-weight: bold; }
+  .gain { color: #1c5c12; }
+  .foot { margin: 12px 0 0; font-size: 11px; line-height: 15px; color: #4a3d1f; }
+
+  /* Right: stone boxes */
+  .side { display: grid; gap: 14px; }
+  .box { background: var(--stone); border: 2px solid var(--stone-edge); border-radius: 4px; padding: 8px 10px 12px; text-align: center; box-shadow: 0 0 0 1px #000, inset 0 0 12px rgba(0, 0, 0, .6); }
+  .box p { margin: 0; color: var(--gold); }
+  .box select { width: 100%; margin-bottom: 6px; padding: 2px; background: #efe6c8; color: #000; border: 1px solid #000; }
+  .box button { padding: 1px 10px; background: #e6e0cf; color: #000; border: 1px solid #000; cursor: pointer; }
+
+  @media (max-width: 720px) {
+    body { font-size: 15px; line-height: 21px; }
+    .cols { grid-template-columns: 1fr; }
+    .banner ul { display: flex; flex-wrap: wrap; gap: 4px 4px; padding: 0 8px; }
+    .banner li.sep { display: none; }
+    .banner .link { width: auto; padding: 4px 9px; border: 1px solid var(--banner-edge); border-radius: 3px; }
+    .banner .link::before { display: none; }
+    .banner .link[aria-current="true"] { border-color: #fff; }
+    .banner h2, .box h2, .scroll h2 { font-size: 15px; }
+    th, td { height: 30px; }
+    .side { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1 id="title">Hiscores</h1>
+    <p id="updated"></p>
+  </header>
+  <div class="cols">
+    <nav class="banner" aria-label="Categories">
+      <h2>Hiscores</h2>
+      <ul id="cats"></ul>
+    </nav>
+    <main class="scroll">
+      <div class="roll"></div>
+      <div class="paper">
+        <h2 id="heading"></h2>
+        <div class="tw"><table id="table"></table></div>
+        <p class="foot" id="foot" hidden></p>
+      </div>
+      <div class="roll"></div>
+    </main>
+    <aside class="side">
+      <div class="box">
+        <h2>Personal scores</h2>
+        <select id="who" aria-label="Player"></select>
+        <button id="who-go">View</button>
+      </div>
+      <div class="box">
+        <h2>Compare Users</h2>
+        <select id="cmp-a" aria-label="First player"></select>
+        <select id="cmp-b" aria-label="Second player"></select>
+        <button id="cmp-go">Compare</button>
+      </div>
+    </aside>
+  </div>
+</div>
+<script>
+const D = {"title":"Drabooligans Hiscores","updated":"2026-11-12T22:31:55+00:00","skills":[{"id":"4zYUGF5u_0KbMLkWJmmBbQ","name":"Skill 1","named":false},{"id":"Wf3i7Ha-B06DH719j1vtBw","name":"Skill 2","named":false},{"id":"4pefO9k1lUqfA6mvHNi1SA","name":"Skill 3","named":false},{"id":"waK-8EyQFQ2xEjCGYmuTRQ","name":"Skill 4","named":false},{"id":"Tn7t6DQyX0-Q0cM5K7B90A","name":"Skill 5","named":false},{"id":"PyUi-0LU_riFY46AnnFiWg","name":"Skill 6","named":false},{"id":"0hreSMRVXUihq9qjDO2CFA","name":"Skill 7","named":false},{"id":"jqX0Gh6QI0GFFPCDFK_CJQ","name":"Skill 8","named":false},{"id":"heq7u88Q2UuLXFqLGTVwQw","name":"Skill 9","named":false},{"id":"NOqC-z-2ckqi0El22qMFlw","name":"Skill 10","named":false},{"id":"vwY5IkQJJDwb2PKEfoc8MQ","name":"Skill 11","named":false},{"id":"pJggvotwOkuoc98igUn7xA","name":"Skill 12","named":false}],"characters":[{"name":"Rob","xp":{"4zYUGF5u_0KbMLkWJmmBbQ":15605,"Wf3i7Ha-B06DH719j1vtBw":78079,"4pefO9k1lUqfA6mvHNi1SA":6971,"waK-8EyQFQ2xEjCGYmuTRQ":41876,"Tn7t6DQyX0-Q0cM5K7B90A":31323,"PyUi-0LU_riFY46AnnFiWg":42238,"0hreSMRVXUihq9qjDO2CFA":5050,"jqX0Gh6QI0GFFPCDFK_CJQ":143113,"heq7u88Q2UuLXFqLGTVwQw":162389,"NOqC-z-2ckqi0El22qMFlw":10654,"vwY5IkQJJDwb2PKEfoc8MQ":1323,"pJggvotwOkuoc98igUn7xA":60479},"total_xp":599100,"quests_total":48,"quests_done":30,"quests_started":13,"playtime_s":242060,"week_xp":0,"week_play_s":0},{"name":"DrDec28","xp":{"4zYUGF5u_0KbMLkWJmmBbQ":40492,"Wf3i7Ha-B06DH719j1vtBw":138252,"4pefO9k1lUqfA6mvHNi1SA":479856,"waK-8EyQFQ2xEjCGYmuTRQ":77768,"Tn7t6DQyX0-Q0cM5K7B90A":32463,"PyUi-0LU_riFY46AnnFiWg":22913,"0hreSMRVXUihq9qjDO2CFA":6000,"jqX0Gh6QI0GFFPCDFK_CJQ":218089,"heq7u88Q2UuLXFqLGTVwQw":42277,"NOqC-z-2ckqi0El22qMFlw":9416,"vwY5IkQJJDwb2PKEfoc8MQ":5241,"pJggvotwOkuoc98igUn7xA":144509},"total_xp":1217276,"quests_total":52,"quests_done":38,"quests_started":12,"playtime_s":376709,"week_xp":34336,"week_play_s":7363},{"name":"Chazzwazza","xp":{"4zYUGF5u_0KbMLkWJmmBbQ":6464,"Wf3i7Ha-B06DH719j1vtBw":57483,"4pefO9k1lUqfA6mvHNi1SA":3912,"waK-8EyQFQ2xEjCGYmuTRQ":2763,"Tn7t6DQyX0-Q0cM5K7B90A":35806,"PyUi-0LU_riFY46AnnFiWg":7395,"0hreSMRVXUihq9qjDO2CFA":68263,"jqX0Gh6QI0GFFPCDFK_CJQ":60415,"heq7u88Q2UuLXFqLGTVwQw":1500,"NOqC-z-2ckqi0El22qMFlw":8715,"vwY5IkQJJDwb2PKEfoc8MQ":1256,"pJggvotwOkuoc98igUn7xA":19464},"total_xp":273436,"quests_total":36,"quests_done":19,"quests_started":13,"playtime_s":145067,"week_xp":0,"week_play_s":0}]};
+const $ = id => document.getElementById(id);
+const fmt = n => Math.round(n).toLocaleString("en-GB");
+const hrs = s => (s / 3600).toFixed(1);
+const el = (tag, text, cls) => {
+  const e = document.createElement(tag);
+  if (text !== undefined) e.textContent = text;
+  if (cls) e.className = cls;
+  return e;
+};
+
+/* Every category is one metric: a value to rank by and a way to print it. */
+function categories() {
+  const cats = [{ id: "overall", label: "Overall", col: "XP", value: c => c.total_xp, show: c => fmt(c.total_xp) }];
+  D.skills.forEach(s => cats.push({ id: s.id, label: s.name, col: "XP", value: c => c.xp[s.id] || 0, show: c => fmt(c.xp[s.id] || 0) }));
+  cats.push({ sep: true });
+  cats.push({ id: "quests", label: "Quests", col: "Completed", value: c => c.quests_done, show: c => c.quests_done + " / " + c.quests_total });
+  cats.push({ id: "playtime", label: "Playtime", col: "Hours", value: c => c.playtime_s, show: c => hrs(c.playtime_s) });
+  return cats;
+}
+const CATS = D ? categories() : [];
+const cat = id => CATS.find(c => c.id === id);
+const rank = (c, who) => 1 + D.characters.filter(o => c.value(o) > c.value(who)).length;
+const player = name => D.characters.find(c => c.name === name);
+let state = { view: "cat", id: "overall" };
+
+function nameLink(c) {
+  const b = el("button", c.name, "link");
+  b.onclick = () => go({ view: "player", name: c.name });
+  return b;
+}
+function row(cells, tag) {
+  const tr = el("tr");
+  cells.forEach(([content, cls]) => {
+    const td = el(tag || "td", undefined, cls || "");
+    if (content instanceof Node) td.append(content); else td.textContent = content;
+    tr.append(td);
+  });
+  return tr;
+}
+function fill(heading, head, rows, foot) {
+  $("heading").textContent = heading;
+  const thead = el("thead"), tbody = el("tbody");
+  thead.append(row(head, "th"));
+  rows.forEach(r => tbody.append(row(r)));
+  $("table").replaceChildren(thead, tbody);
+  $("foot").textContent = foot || "";
+  $("foot").hidden = !foot;
+}
+
+function renderCat(id) {
+  const c = cat(id);
+  const chars = [...D.characters].sort((a, b) => c.value(b) - c.value(a));
+  const week = id === "overall" && chars.some(p => p.week_xp != null) ? "xp"
+    : id === "playtime" && chars.some(p => p.week_play_s != null) ? "play" : null;
+  const head = [["Rank"], ["Name", "l"], [c.col]];
+  if (week) head.push(["This week"]);
+  const rows = chars.map(p => {
+    const r = [[String(rank(c, p))], [nameLink(p), "l"], [c.show(p)]];
+    if (week === "xp") r.push([p.week_xp ? "+" + fmt(p.week_xp) : "-", "gain"]);
+    if (week === "play") r.push([p.week_play_s ? "+" + hrs(p.week_play_s) : "-", "gain"]);
+    return r;
+  });
+  const unnamed = D.skills.some(s => s.id === id && !s.named);
+  fill(c.label + " Hiscores", head, rows,
+    unnamed ? "Skill names are not mapped yet, so skills show as numbers."
+    : id === "quests" ? "Completed, out of the quests each character has discovered." : "");
+}
+
+function renderPlayer(name) {
+  const p = player(name);
+  const rows = CATS.filter(c => !c.sep).map(c => {
+    const b = el("button", c.label, "link");
+    b.onclick = () => go({ view: "cat", id: c.id });
+    return [[b, "l"], [String(rank(c, p))], [c.show(p)]];
+  });
+  fill("Personal scores for " + p.name, [["Skill", "l"], ["Rank"], ["Score"]], rows);
+}
+
+function renderCompare(a, b) {
+  const pa = player(a), pb = player(b);
+  const rows = CATS.filter(c => !c.sep).map(c => {
+    const va = c.value(pa), vb = c.value(pb);
+    return [[c.show(pa), va > vb ? "win" : ""], [c.label, "c"], [c.show(pb), vb > va ? "win l" : "l"]];
+  });
+  fill(pa.name + " vs " + pb.name, [[pa.name], ["Skill", "c"], [pb.name, "l"]], rows);
+}
+
+function go(next) {
+  state = next;
+  if (state.view === "cat") renderCat(state.id);
+  else if (state.view === "player") renderPlayer(state.name);
+  else renderCompare(state.a, state.b);
+  [...$("cats").querySelectorAll("button")].forEach(b =>
+    b.setAttribute("aria-current", String(state.view === "cat" && b.dataset.id === state.id)));
+}
+
+if (!D) {
+  $("updated").textContent = "No data: this page is built by dw_build.py.";
+} else {
+  document.title = D.title;
+  $("title").textContent = D.title;
+  $("updated").textContent = "Last updated: " + new Date(D.updated).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" });
+  CATS.forEach(c => {
+    const li = el("li", undefined, c.sep ? "sep" : "");
+    if (!c.sep) {
+      const b = el("button", c.label, "link");
+      b.dataset.id = c.id;
+      b.onclick = () => go({ view: "cat", id: c.id });
+      li.append(b);
+    }
+    $("cats").append(li);
+  });
+  const names = D.characters.map(c => c.name).sort((a, b) => a.localeCompare(b));
+  ["who", "cmp-a", "cmp-b"].forEach((id, i) => {
+    names.forEach(n => $(id).append(el("option", n)));
+    if (id === "cmp-b" && names.length > 1) $(id).selectedIndex = 1;
+  });
+  $("who-go").onclick = () => go({ view: "player", name: $("who").value });
+  $("cmp-go").onclick = () => go({ view: "compare", a: $("cmp-a").value, b: $("cmp-b").value });
+  go(state);
+}
+</script>
+</body>
+</html>
