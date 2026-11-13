@@ -23,7 +23,7 @@
     background-size: 46px 46px, 62px 62px, 100% 100%;
   }
   button, select { font: inherit; }
-  .page { max-width: 760px; margin: 0 auto; padding: 16px 16px 40px; }
+  .page { max-width: 920px; margin: 0 auto; padding: 16px 16px 40px; }
   header { text-align: center; padding: 18px 0 20px; }
   header h1 { margin: 0; font-size: 26px; line-height: 1.2; font-weight: bold; color: var(--gold-bright); text-shadow: 2px 2px 0 #000; }
   header p { margin: 6px 0 0; color: var(--gold); }
@@ -53,7 +53,7 @@
       linear-gradient(90deg, var(--paper-dark), var(--paper) 9%, var(--paper) 91%, var(--paper-dark));
     border-left: 1px solid #6b5a33; border-right: 1px solid #6b5a33; }
   .scroll h2 { margin: 0 0 10px; font-size: 13px; font-weight: bold; }
-  .scroll .tw { overflow-x: auto; }
+  .scroll .tw { overflow: visible; }  /* never clip a table at desktop width */
   table { margin: 0 auto; border-collapse: collapse; font-variant-numeric: tabular-nums; }
   th, td { padding: 1px 6px; height: 23px; text-align: right; white-space: nowrap; font-weight: normal; }
   th { font-weight: bold; }
@@ -83,7 +83,8 @@
   .box select { width: 100%; margin-bottom: 6px; padding: 2px; background: #efe6c8; color: #000; border: 1px solid #000; }
   .box button { padding: 1px 10px; background: #e6e0cf; color: #000; border: 1px solid #000; cursor: pointer; }
 
-  @media (max-width: 720px) {
+  /* Below 900px the three columns stack, so the scroll always has the full width. */
+  @media (max-width: 900px) {
     body { font-size: 15px; line-height: 21px; }
     .cols { grid-template-columns: 1fr; }
     .banner ul { display: flex; flex-wrap: wrap; gap: 4px 4px; padding: 0 8px; }
@@ -93,6 +94,14 @@
     .banner h2, .box h2, .scroll h2 { font-size: 15px; }
     th, td { height: 30px; }
     .side { grid-template-columns: 1fr 1fr; }
+  }
+  /* Phones: tighten wide tables so six columns fit; scrolling is the last resort only here. */
+  @media (max-width: 480px) {
+    .scroll .paper { padding-left: 4px; padding-right: 4px; }
+    .scroll .tw { overflow-x: auto; }
+    table.wide { font-size: 13px; }
+    table.wide th, table.wide td { padding: 1px 4px; }
+    table.wide .on { display: block; line-height: 1; }  /* under the name, so it adds no width */
   }
 </style>
 </head>
@@ -211,6 +220,7 @@ function fill(heading, head, rows, foot, iconKey) {
   thead.append(row(head, "th"));
   rows.forEach(r => tbody.append(row(r)));
   $("table").replaceChildren(thead, tbody);
+  $("table").classList.toggle("wide", head.length > 4);
   $("extra").replaceChildren();
   $("foot").textContent = foot || "";
   $("foot").hidden = !foot;
